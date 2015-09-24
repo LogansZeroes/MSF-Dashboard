@@ -1,0 +1,25 @@
+.panel.panel-default {
+	border: 1px solid black;
+	border-radius: 0;
+	.panel-heading {
+		background-color: white;
+		border-bottom: 1px solid black;
+		h1 {
+			font-size: 20px
+		}
+	}
+
+	& > ul >li {
+		border: 1px solid black;
+	}
+
+	a {
+		text-decoration: none;
+		color: black;
+		transition: color 0.2s;
+		&:hover {
+			color: $mainColor;
+		}
+	}
+
+}

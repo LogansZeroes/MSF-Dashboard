@@ -1,0 +1,21 @@
+<nav class="navbar navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a ui-sref="home"><img src="https://lh5.googleusercontent.com/-8fSlufz4WGs/AAAAAAAAAAI/AAAAAAAAAAA/a6gP8e2w0dc/s0-c-k-no-ns/photo.jpg" alt=""></a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
+                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+            </li>
+            <!-- <li ng-repeat="item in items" ng-show="user.isAdmin">
+                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+            </li> -->
+        </ul>
+        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
+        <button ng-show="!user" ui-sref="signup" class="btn signup-button">Signup</button>
+        <div ng-show="user" class="welcome">
+            <span>Welcome, <a ui-sref="user({userId: user._id })">{{ user.email }}</a>!</span>
+            <a ng-click="logout()">Logout</a>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,35 @@
+
+.btn {
+	border-radius: 0px;
+	background-color: white;
+	color: black;
+	border-color: black;
+	margin: 5px 0px;
+
+	&:hover {
+		color: $mainColor;
+		background-color: white;
+		border-color: $mainColor;
+	}
+
+	&:active {
+		color: white;
+		background-color: $mainColor;
+		border-color: $mainColor;
+	}
+
+}
+
+.btn-danger {
+	&:hover {
+		color: #cd5c5c;
+		background-color: white;
+		border-color: #cd5c5c;
+	}
+}
+
+.btn-add {
+	float: right;
+	margin-top: 0px;
+	margin-bottom: 12px;
+}

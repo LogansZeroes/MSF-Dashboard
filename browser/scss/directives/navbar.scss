@@ -1,0 +1,105 @@
+navbar {
+
+  display: block;
+  background: white;
+  border-bottom: 1px solid black;
+  height: 70px;
+  // font-family: 'Poiret One', cursive;
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+
+  img {
+  	height: 65px;
+  	padding-top: 8px;
+  	padding-right: 15px
+
+  }
+
+  .navbar-static-top {
+  	margin: 0;
+  }
+
+
+
+  a {
+    color: black;
+    font-size: 16px;
+  }
+
+  .nav img {
+  	font-size: 20px;
+  	padding: 0 15px;
+  	line-height: 69px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    &.active {
+		background-color: $mainColor;
+    }
+    &:hover {
+      background-color: lighten($mainColor, 20%);
+    }
+
+  }
+
+  .nav > li > a {
+  	font-size: 20px;
+  	padding: 0 15px;
+  	line-height: 69px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    &.active {
+		background-color: $mainColor;
+    }
+    &:hover {
+      background-color: lighten($mainColor, 20%);
+    }
+
+  }
+
+  .login-button {
+    float: right;
+    border: 1px solid black;
+    margin-top: 17px;
+    background: none;
+    outline: none !important;
+  }
+
+  .signup-button {
+    float: right;
+    border: 1px solid black;
+    margin-top: 17px;
+	margin-right: 7px;
+    outline: none !important;
+  }
+
+  .welcome {
+  	font-size: 20px;
+  	line-height: 70px;
+    float: right;
+    span {
+      color: black;
+    }
+    a {
+      cursor: pointer;
+      font-size: 20px;
+      text-decoration: none;
+      &:hover {
+      font-weight: 400;
+    }
+    }
+    a[ng-click="logout()"] {
+      &.active {
+		background-color: $mainColor;
+	    }
+	    &:hover {
+	      background-color: lighten($mainColor, 20%);
+	    }
+	    font-size: 20px;
+	  	padding: 22px 15px;
+	  	line-height: 69px;
+	    cursor: pointer;
+
+    }
+  }
+
+}

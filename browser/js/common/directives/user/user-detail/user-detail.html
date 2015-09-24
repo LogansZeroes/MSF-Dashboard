@@ -1,0 +1,30 @@
+<div>
+  <h3> {{ user.email }} </h3>
+	<h4> Admin: {{user.isAdmin}} </h4>
+	<div>
+		<edit-button></edit-button>
+		<div ng-show="editMode" class="panel panel-default">
+			<p>Is this an admin user?</p>
+			<select ng-model="user.isAdmin">
+				<option ng-value="true">yes</option>
+				<option ng-value="false">no</option>
+			</select>
+			<button
+				class="btn"
+				ng-click="saveUser(user)">Save
+			</button>
+			<button
+				class="btn btn-danger"
+				ng-click="cancelEdit()">Cancel
+			</button>
+			<button
+				class="btn btn-danger"
+				ng-click="deleteUser(user._id)">Delete User
+			</button>
+            <button
+                class="btn btn-danger"
+                ng-click="resetPass(user._id)"> Reset password
+            </button>
+	</div>
+	</div>
+</div>

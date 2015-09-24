@@ -1,0 +1,32 @@
+<html>
+<head><meta charset='utf-8'></head>
+<body>
+<div class="container">
+  <p>Hey {{order.name}},</p>
+  <h1>Your Order Has Been Updated to {{order.status | upper}}</h1>
+  <p>
+    DUDE, YOU"RE GETTinG A DELL! (if you ordered a Dell). Your order status has changed to {{order.status}}.
+  </p>
+  <p>
+    <p>Address:</p>
+    <p>{{order.address.address1 }}<br>
+    {{order.address.address2 }}<br>
+    {{order.address.city }}, {{order.address.state}} {{order.address.zip}}</p>
+    <p>Items:</p>
+    <ul class="list-group">
+      {% for item in order.items %}
+        <li class="list-group-item">
+          <p>{{item.product.name}}</p>
+          <p>{{item.quantity | number}}</p>
+        </li>
+      {% endfor %}
+    </ul>
+    <p>Total: ${{order.total}}</p>
+  </p>
+  <p>
+    Talk soon,<br>
+    EXXXTREME
+  </p>
+</div>
+</body>
+</html>
