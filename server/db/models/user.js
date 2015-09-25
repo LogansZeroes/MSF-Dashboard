@@ -2,7 +2,6 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var validator = require('email-validator');
-var _ = require('lodash');
 
 
 var schema = new mongoose.Schema({
@@ -11,9 +10,9 @@ var schema = new mongoose.Schema({
         unique: true,
         required: true
     },
-    password: {
-        type: String
-    },
+    password: String,
+    firstName: String,
+    lastName: String,
     isAdmin: {
         type: Boolean,
         default: false
@@ -21,7 +20,6 @@ var schema = new mongoose.Schema({
     salt: {
         type: String
     },
-	cart: [mongoose.Schema.Types.Mixed],
     newPass: {
         type: Boolean,
         default: false

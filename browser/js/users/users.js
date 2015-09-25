@@ -9,9 +9,11 @@ app.config(function($stateProvider){
 		},
 		controller: function ($scope, users, Session, $state) {
 			$scope.users = users;
-			if (!Session.user || !Session.user.isAdmin){
-				$state.go('home');
-			}
+
+            //WHY NOT ON SESSION????
+			// if (!Session.user || !Session.user.isAdmin){
+			// 	$state.go('home');
+			// }
 		}
 });
 });

@@ -1,7 +1,7 @@
 'use strict';
 window.app = angular.module('FullstackGeneratedApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt']);
 
-app.config(function ($urlRouterProvider, $locationProvider, $urlMatcherFactoryProvider) {
+app.config(function ($urlRouterProvider, $locationProvider) {
 
 	// this makes the '/users/' route correctly redirect to '/users'
 	$urlRouterProvider.rule(function ($injector, $location) {
@@ -26,7 +26,7 @@ app.config(function ($urlRouterProvider, $locationProvider, $urlMatcherFactoryPr
 });
 
 // This app.run is for controlling access to specific states.
-app.run(function ($rootScope, AuthService, $state, Socket) {
+app.run(function ($rootScope, AuthService, $state) {
 
 	// The given state requires an authenticated user.
 	var destinationStateRequiresAuth = function (state) {

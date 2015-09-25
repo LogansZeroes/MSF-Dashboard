@@ -7,7 +7,7 @@
 
     var app = angular.module('fsaPreBuilt', []);
 
-    app.factory('Socket', function ($rootScope) {
+    app.factory('Socket', function () {
         if (!window.io) throw new Error('socket.io not found!');
         return window.io(window.location.origin);
     });
@@ -112,7 +112,6 @@
         };
 
         this.signup = function (credentials) {
-            // don't catch this to get an error for signup
             return $http.post('/signup', credentials)
                 .then(onSuccessfulSignup);
         };

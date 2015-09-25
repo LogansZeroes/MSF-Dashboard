@@ -52,10 +52,9 @@ module.exports = function (app) {
 
     // Simple /logout route.
     app.get('/logout', function (req, res, next) {
+        console.log('logging out ', req.user);
 		if (!req.user) return res.status(204).end();
-		req.user.saveCart(req.session.cart || []).then(function(){
-    		req.logout();
-			req.session.cart = []; //empty the cart
+		req.logout().then(function(){
         	res.status(200).end();
 		}).then(null, next);
     });
