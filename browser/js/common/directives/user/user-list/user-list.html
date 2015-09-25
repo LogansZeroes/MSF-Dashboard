@@ -1,6 +1,6 @@
 <div class="panel panel-default">
-    <a>HELLO</a>
+    <a>List of registered users</a>
   <ul>
-    <li ng-repeat="user in users"><a ui-sref="user({userId: '{{user._id}}' })">{{user.email}}</a></li>
+    <li ng-repeat="user in users"><a ui-sref="user({userId: '{{user._id}}' })">{{user.firstName}} {{user.lastName}},  {{user.email}}</a></li>
   </ul>
 </div>

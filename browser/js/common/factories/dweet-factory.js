@@ -6,7 +6,6 @@ app.factory('DweetFactory', function ($http) {
     Dweets.getAll = function (){
         return $http.get('/api/data')
         .then(function (response){
-
             return response.data;
         })
 	};

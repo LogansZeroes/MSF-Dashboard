@@ -28,12 +28,18 @@ var seedUsers = function () {
 
     var users = [{
         email: 'testing@fsa.com',
+        firstName: 'Full',
+        lastName: 'Stack',
         password: 'password'
     }, {
         email: 'obama@gmail.com',
+        firstName: 'Barack',
+        lastName: 'Obama',
         password: 'potus'
     }, {
         email: 'd@d.com',
+        firstName: 'Jimin',
+        lastName: 'Admin',
         password: 'd',
         isAdmin: true
     }];

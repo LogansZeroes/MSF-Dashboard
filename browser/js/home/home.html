@@ -1,10 +1,13 @@
 <div id="home">
 	<div class="row">
-        <h1> Project name </h1>
+        <h1> Project "Vaccinate Deez Kidz"</h1>
 	</div>
-    <h3>Chart</h3>
+    <h3>Temperature Readings</h3>
     <canvas id="chart" width="1000" height="100"></canvas>
 
-    <h3> DWEETS </h3>
-    <dweet-list dweets="dweets"></dweet-list>
+    <h3> Recent Dweets </h3>
+    <!-- <dweet-list dweets="dweets"></dweet-list> -->
+    <ul>
+        <li ng-repeat="dweet in homeDweets | orderBy:'created' ">{{ dweet }}</li>
+    </ul>
 </div>

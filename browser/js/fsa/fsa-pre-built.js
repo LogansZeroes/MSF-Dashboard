@@ -112,7 +112,6 @@
         };
 
         this.signup = function (credentials) {
-            // don't catch this to get an error for signup
             return $http.post('/signup', credentials)
                 .then(onSuccessfulSignup);
         };
