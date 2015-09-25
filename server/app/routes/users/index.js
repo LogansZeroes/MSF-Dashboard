@@ -48,8 +48,6 @@ router.get('/:userId', function (req, res) {
 });
 
 router.delete('/:userId', function (req, res, next){
-	var storeToRemove;
-
 	if (!req.user){
 		res.status(401).end();
 	}
@@ -59,21 +57,9 @@ router.delete('/:userId', function (req, res, next){
 
 	req.foundUser.remove() //remove user
 	.then(function(){
-		return Store.findOne({user: req.foundUser}); //find store
-	})
-	.then(function(foundStore){
-		if (!foundStore) {
-			return res.status(204).end(); //end if user has no stores
-		}
-		storeToRemove = foundStore; //save store so we can delete its products
-		return foundStore.remove();
-	})
-	.then(function(){ //delete products
-		return Product.remove({store: storeToRemove});
-	})
-	.then(function(){
 		res.status(204).end();
-	}).then(null, next);
+	})
+    .then(null, next);
 });
 
 router.param('userId', function (req, res, next, userId) {
