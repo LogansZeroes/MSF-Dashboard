@@ -1,14 +1,18 @@
 app.config(function ($stateProvider) {
-    $stateProvider.state('data', {
+    $stateProvider
+    .state('data', {
         url: '/data',
         templateUrl: 'js/data/data.html',
-        controller: function ($scope, findTweets) {
-          $scope.tweets = findTweets;
+        controller: function ($scope, allDweets) {
+          $scope.dweets = allDweets;
         },
         resolve: {
-            findTweets: function (TweetFactory) {
-                return TweetFactory.getAll();
+            // findDweets: function (DweetFactory) {
+            //     return DweetFactory.getAll();
+            // };
+            allDweets: function (DweetFactory) {
+                return DweetFactory.getAll();
             }
         }
-    });
+    })
 });

@@ -2,7 +2,6 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var validator = require('email-validator');
-var _ = require('lodash');
 
 
 var schema = new mongoose.Schema({

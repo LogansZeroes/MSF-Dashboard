@@ -1,4 +1,4 @@
-app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, $interval) {
+app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) {
 
     return {
         restrict: 'E',
@@ -9,6 +9,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state, 
             scope.items = [
                 { label: 'Users', state: 'users' },
                 { label: 'Data', state: 'data' },
+                { label: 'Latest', state: 'latest' },
                 { label: 'Documentation', state: 'docs' },
             ];
 

@@ -7,7 +7,7 @@
 
     var app = angular.module('fsaPreBuilt', []);
 
-    app.factory('Socket', function ($rootScope) {
+    app.factory('Socket', function () {
         if (!window.io) throw new Error('socket.io not found!');
         return window.io(window.location.origin);
     });

@@ -14,10 +14,35 @@
     <script src="/angular-bootstrap/ui-bootstrap.js"></script>
     <script src="/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
+    <script type="text/javascript" src="/smoothie.js"></script>
     <script src="/main.js"></script>
+
 </head>
-<body ng-app="FullstackGeneratedApp">
+<body ng-app="FullstackGeneratedApp" >
     <navbar></navbar>
+
+    <!-- <canvas id="chart" width="1000" height="100"></canvas> -->
+
     <div id="main" ui-view></div>
+
+    <!-- <script src="/chart.js"></script> -->
+
+    <!-- <script type="text/javascript">
+
+      var line1 = new TimeSeries();
+      var line2 = new TimeSeries();
+      setInterval(function() {
+        line1.append(new Date().getTime(), Math.random());
+        line2.append(new Date().getTime(), Math.random());
+      }, 1000);
+
+      var smoothie = new SmoothieChart({ grid: { strokeStyle: 'rgb(125, 0, 0)', fillStyle: 'rgb(60, 0, 0)', lineWidth: 1, millisPerLine: 250, verticalSections: 6 } });
+      smoothie.addTimeSeries(line1, { strokeStyle: 'rgb(0, 255, 0)', fillStyle: 'rgba(0, 255, 0, 0.4)', lineWidth: 3 });
+      smoothie.addTimeSeries(line2, { strokeStyle: 'rgb(255, 0, 255)', fillStyle: 'rgba(255, 0, 255, 0.3)', lineWidth: 3 });
+
+      smoothie.streamTo(document.getElementById("chart"), 1000);
+    </script> -->
+    <!-- <script type="text/javascript" src="/chart.js"></script> -->
+
 </body>
 </html>
