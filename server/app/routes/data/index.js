@@ -9,8 +9,7 @@ var Dweet = require('mongoose').model('Dweet');
 
 router.get('/latest', function (req, res) {
     var currDate = new Date();
-    var currTime = currDate.getTime();
-    var hourBack = currTime - 1000*3600;
+    var hourBack = new Date(currDate.getTime() - 60*60*1000);
 
     dweetio.get_latest_dweet_for("calm-patch", function(err, latestDweet){
 
