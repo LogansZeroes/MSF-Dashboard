@@ -11,7 +11,6 @@ router.get('/latest', function (req, res) {
     var currDate = new Date();
     var currTime = currDate.getTime();
     var hourBack = currTime - 1000*3600;
-    var minBack = currTime - 1000*60;
 
     dweetio.get_latest_dweet_for("calm-patch", function(err, latestDweet){
 
@@ -26,7 +25,7 @@ router.get('/latest', function (req, res) {
         Dweet.create(obj);
 
         //Remove all dweets prior to the last hour (for garbage collection)
-        Dweet.find({created: {$lte: minBack} }).remove().exec();
+        Dweet.find({created: {$lte: hourBack} }).remove().exec();
         // console.log('The Name ', dweet.thing); // The generated name
         // console.log('The Content ', dweet.content); // The content of the dweet
         // console.log(dweet.created); // The create date of the dweet
