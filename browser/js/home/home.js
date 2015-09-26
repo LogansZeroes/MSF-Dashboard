@@ -28,7 +28,7 @@ app.config(function($stateProvider) {
                         $scope.prevDweet = $scope.lastDweet;
                         line1.append(new Date().getTime(), $scope.lastDweet.content['Temperature']);
                         //Random plot to check that the graph is working
-                        line2.append(new Date().getTime(), Math.floor(Math.random()*3+72));
+                        line2.append(new Date().getTime(), Math.floor(Math.random()*3+68));
                     }
                 })
 
@@ -46,17 +46,17 @@ app.config(function($stateProvider) {
                 // maxValue: 73,
                 // minValue: 72,
                 maxValueScale: 1.005,
-                minValueScale: 1.005,
+                minValueScale: 1.02,
                 timestampFormatter:SmoothieChart.timeFormatter,
                 //The range of acceptable temperatures should be below
                 horizontalLines:[{
                     color:'#880000',
                     lineWidth:2,
-                    value:73
+                    value:70
                 }, {
                     color:'#880000',
                     lineWidth:2,
-                    value:72
+                    value:68
                 }]
             });
 
