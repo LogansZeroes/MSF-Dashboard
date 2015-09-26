@@ -1,21 +1,21 @@
 .panel.panel-default {
-	border: 1px solid black;
+	border: 1px solid white;
 	border-radius: 0;
 	.panel-heading {
 		background-color: white;
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid white;
 		h1 {
 			font-size: 20px
 		}
 	}
 
 	& > ul >li {
-		border: 1px solid black;
+		border: 1px solid white;
 	}
 
 	a {
 		text-decoration: none;
-		color: black;
+		color: white;
 		transition: color 0.2s;
 		&:hover {
 			color: $mainColor;
