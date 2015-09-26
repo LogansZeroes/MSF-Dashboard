@@ -6754,12 +6754,6 @@ a.list-group-item-danger.active:focus {
 .popover-title {
   border: none; }
 
-fullstack-logo {
-  display: block; }
-  fullstack-logo img {
-    display: block;
-    width: 100%; }
-
 navbar {
   display: block;
   background: #141114;

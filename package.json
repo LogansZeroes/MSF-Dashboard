@@ -1,7 +1,7 @@
 {
-  "name": "FullstackGeneratedApp",
+  "name": "MSFTemp",
   "version": "1.0.0",
-  "description": "A generated project at Fullstack Academy",
+  "description": "A dashboard project created by Jimin Sung",
   "main": "server/start.js",
   "scripts": {
     "start": "nodemon --watch server -e js,html server/start.js",

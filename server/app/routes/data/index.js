@@ -5,11 +5,20 @@ module.exports = router;
 // var https = require('https');
 var dweetClient = require("node-dweetio");
 var dweetio = new dweetClient();
+var Dweet = require('mongoose').model('Dweet');
 
 router.get('/latest', function (req, res) {
     dweetio.get_latest_dweet_for("calm-patch", function(err, latestDweet){
+
         var dweet = latestDweet[0]; // Dweet is always an array of 1
 
+        var obj = {
+            name: dweet.thing,
+            created: dweet.created,
+            temp: dweet.content.Temperature
+        };
+
+        Dweet.create(obj);
         // console.log('The Name ', dweet.thing); // The generated name
         // console.log('The Content ', dweet.content); // The content of the dweet
         // console.log(dweet.created); // The create date of the dweet

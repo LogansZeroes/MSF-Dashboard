@@ -22,13 +22,15 @@ app.config(function($stateProvider) {
                     $scope.lastDweet = dweet;
                 })
                 .then(function() {
-                    if ($scope.prevDweet.created != $scope.lastDweet.created)
-                    {
+                    if ($scope.prevDweet.created != $scope.lastDweet.created) {
                         $scope.homeDweets.push($scope.lastDweet);
                         $scope.prevDweet = $scope.lastDweet;
                         line1.append(new Date().getTime(), $scope.lastDweet.content['Temperature']);
                         //Random plot to check that the graph is working
                         line2.append(new Date().getTime(), Math.floor(Math.random()*3+68));
+                    }
+                    while($scope.homeDweets.length > 100) {
+                        $scope.homeDweets.shift();
                     }
                 })
 
