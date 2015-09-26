@@ -6883,7 +6883,8 @@ navbar {
 
 .panel.panel-default {
   border: 1px solid white;
-  border-radius: 0; }
+  border-radius: 0;
+  display: block; }
   .panel.panel-default .panel-heading {
     background-color: white;
     border-bottom: 1px solid white; }

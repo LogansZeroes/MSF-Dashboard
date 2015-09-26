@@ -1,17 +1,34 @@
 <div>
-  <h3> {{ user.email }} </h3>
-	<h4> Admin: {{user.isAdmin}} </h4>
+  <h3> Hello, {{ user.firstName }} {{user.lastName}}!</h3>
 	<div>
 		<edit-button></edit-button>
-		<div ng-show="editMode" class="panel panel-default">
-			<p>Is this an admin user?</p>
-			<select ng-model="user.isAdmin">
-				<option ng-value="true">yes</option>
-				<option ng-value="false">no</option>
-			</select>
+		<div ng-show="editMode" class="panel panel-body">
+
+            <div class="form-group">
+                <label for="firstName"><h5>First Name</h5></label>
+			    <input ng-model="user.firstName" id="firstName">
+            </div>
+
+            <div class="form-group">
+                <label for="lastName"><h5>Last Name</h5></label>
+			    <input ng-model="user.lastName" id="lastName">
+            </div>
+
+            <div class="form-group">
+                <label for="email"><h5>Email</h5></label>
+			    <input ng-model="user.email" id="email">
+            </div>
+
+            <div ng-show="editPass">
+                <div class="form-group">
+                    <label for="password"><h5>New Password</h5></label>
+    			    <input ng-model="user.password" id="password">
+                </div>
+            </div>
+
 			<button
 				class="btn"
-				ng-click="saveUser(user)">Save
+				ng-click="saveUser(user)">Save Changes
 			</button>
 			<button
 				class="btn btn-danger"
@@ -19,12 +36,13 @@
 			</button>
 			<button
 				class="btn btn-danger"
-				ng-click="deleteUser(user._id)">Delete User
+				ng-click="deleteUser(user._id)">Delete Account
 			</button>
-            <button
+            <!-- <button
                 class="btn btn-danger"
                 ng-click="resetPass(user._id)"> Reset password
-            </button>
+            </button> -->
+            <edit-pass-button></edit-pass-button>
 	</div>
 	</div>
 </div>

@@ -2,7 +2,7 @@ app.config(function($stateProvider) {
     $stateProvider.state('home', {
         url: '/',
         templateUrl: 'js/home/home.html',
-        controller: function($scope, DweetFactory) {
+        controller: function($scope, DweetFactory, latestTemp) {
             //Create array of latest dweets to display on home state
             $scope.homeDweets = [];
 
@@ -27,7 +27,7 @@ app.config(function($stateProvider) {
                         $scope.prevDweet = $scope.lastDweet;
                         line1.append(new Date().getTime(), $scope.lastDweet.content['Temperature']);
                         //Random plot to check that the graph is working
-                        line2.append(new Date().getTime(), Math.floor(Math.random()*3+68));
+                        line2.append(new Date().getTime(), Math.floor(Math.random()*4+70));
                     }
                     while($scope.homeDweets.length > 100) {
                         $scope.homeDweets.shift();
@@ -35,6 +35,7 @@ app.config(function($stateProvider) {
                 })
 
             }, 100);
+
 
             //Make a smoothie chart with aesthetically pleasing properties
             var smoothie = new SmoothieChart({
@@ -47,18 +48,19 @@ app.config(function($stateProvider) {
                 },
                 // maxValue: 73,
                 // minValue: 72,
-                maxValueScale: 1.005,
+                maxValueScale: 1.01,
                 minValueScale: 1.02,
                 timestampFormatter:SmoothieChart.timeFormatter,
-                //The range of acceptable temperatures should be below
+                //The range of acceptable temperatures visualized
+                //Should change 'value' accordingly
                 horizontalLines:[{
                     color:'#880000',
-                    lineWidth:2,
-                    value:70
+                    lineWidth:5,
+                    value:latestTemp*1.005 || 70
                 }, {
                     color:'#880000',
-                    lineWidth:2,
-                    value:68
+                    lineWidth:5,
+                    value:latestTemp*0.99 || 68
                 }]
             });
 
@@ -74,6 +76,14 @@ app.config(function($stateProvider) {
             });
 
             smoothie.streamTo(document.getElementById("chart"), 300);
+        },
+        resolve: {
+            latestTemp: function (DweetFactory) {
+                return DweetFactory.getLatest()
+                .then( function (dweet) {
+                    return dweet.content['Temperature'];
+                });
+            }
         }
     });
 });

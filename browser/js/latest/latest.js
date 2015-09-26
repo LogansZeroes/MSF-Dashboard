@@ -6,9 +6,6 @@ app.config(function($stateProvider) {
           $scope.latestDweet = latestDweet;
         },
         resolve: {
-            // findDweets: function (DweetFactory) {
-            //     return DweetFactory.getAll();
-            // };
             latestDweet: function (DweetFactory) {
                 return DweetFactory.getLatest();
             }
