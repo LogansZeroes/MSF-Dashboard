@@ -175,7 +175,7 @@ describe('User model', function () {
 				})
 			});
 
-			it('should be an email', function (done) {
+			it('should be a valid email', function (done) {
 				createBadEmailUser()
 				.then(null, function (error) {
 					expect(error.errors.email).to.exist;

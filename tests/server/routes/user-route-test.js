@@ -31,7 +31,7 @@ describe('Users Route', function () {
 		});
 
 		beforeEach('Make a user', function (done) {
-			User.create({email: "sean@sean.com", password: "mypass"})
+			User.create({email: "jimin@test.com", password: "mypass"})
 			.then(function (user) {
 				done();
 			})
@@ -72,18 +72,18 @@ describe('Users Route', function () {
 
 		it('should make a user', function (done) {
 			agent.post('/api/users/')
-				.send({email: "sean@sean.com", password: "mypass"})
+				.send({email: "jimin@test.com", password: "mypass"})
 				.expect(201)
 				.end(function (err, response) {
 					if (err) return done(err);
-					expect(response.body.email).to.equal('sean@sean.com');
+					expect(response.body.email).to.equal('jimin@test.com');
 					done();
 				});
 		});
 
 		it('should not give back passwords', function (done) {
 			agent.post('/api/users/')
-				.send({email: "sean@sean.com", password: "mypass"})
+				.send({email: "jimin@test.com", password: "mypass"})
 				.expect(201)
 				.end(function (err, response) {
 					if (err) return done(err);
@@ -104,7 +104,7 @@ describe('Users Route', function () {
 		});
 
 		beforeEach('Make a user', function (done) {
-			User.create({email: "sean@sean.com", password: "mypass"})
+			User.create({email: "jimin@test.com", password: "mypass"})
 			.then(function (user) {
 				userId = user._id;
 				done();
@@ -118,7 +118,7 @@ describe('Users Route', function () {
 				.expect(200)
 				.end(function (err, response) {
 					if (err) return done(err);
-					expect(response.body.email).to.equal('sean@sean.com');
+					expect(response.body.email).to.equal('jimin@test.com');
 
 					done()
 				});
@@ -147,7 +147,7 @@ describe('Users Route', function () {
 		});
 
 		beforeEach('Make a second basic user', function (done) {
-			User.create({email: "sean@sean.com", password: "mypass"})
+			User.create({email: "jimin@test.com", password: "mypass"})
 			.then(function (user) {
 				userId = user._id;
 				done();
@@ -156,7 +156,7 @@ describe('Users Route', function () {
 		});
 
 		beforeEach('Make an admin user', function (done) {
-			User.create({email: "bean@bean.com", password: "mypass", isAdmin: true})
+			User.create({email: "admin@istrator.com", password: "mypass", isAdmin: true})
 			.then(function (user) {
 				adminId = user._id;
 				done();
@@ -166,7 +166,7 @@ describe('Users Route', function () {
 
 		it('should err if not logged in', function (done) {
 			agent.put('/api/users/' + userId)
-				.send({email: "poop@poop.com"})
+				.send({email: "fake@fake.com"})
 				.expect(401)
 				.end(done);
 		})
@@ -176,7 +176,7 @@ describe('Users Route', function () {
 				.send({email: "dude@dood.com", password: "dude"})
 				.end(function (err, response) {
 					agent.put('/api/users/' + userId)
-						.send({email: "poop@poop.com"})
+						.send({email: "fake@fake.com"})
 						.expect(403)
 						.end(done);
 				})
@@ -184,16 +184,16 @@ describe('Users Route', function () {
 
 		it('should edit own user when logged in', function (done) {
 			agent.post('/login')
-				.send({email: "sean@sean.com", password: "mypass"})
+				.send({email: "jimin@test.com", password: "mypass"})
 				.end(function (err, response) {
 					agent.put('/api/users/' + userId)
-						.send({email: "poop@poop.com"})
+						.send({email: "change@test.com"})
 						.expect(201)
 						.end(function (err, response) {
 							if (err) return done(err);
 							User.findById(userId)
 							.then(function (user) {
-								expect(user.email).to.equal('poop@poop.com');
+								expect(user.email).to.equal('change@test.com');
 								done();
 							});
 						});
@@ -203,16 +203,16 @@ describe('Users Route', function () {
 
 		it('should edit other user when admin', function (done) {
 			agent.post('/login')
-				.send({email: "bean@bean.com", password: "mypass"})
+				.send({email: "admin@istrator.com", password: "mypass"})
 				.end(function (err, response) {
 					agent.put('/api/users/' + userId)
-						.send({email: "poop@poop.com"})
+						.send({email: "change@test.com"})
 						.expect(201)
 						.end(function (err, response) {
 							if (err) return done(err);
 							User.findById(userId)
 							.then(function (user) {
-								expect(user.email).to.equal('poop@poop.com');
+								expect(user.email).to.equal('change@test.com');
 								done();
 							});
 						});
@@ -223,14 +223,14 @@ describe('Users Route', function () {
 
 		it('should not give back passwords', function (done) {
 			agent.post('/login')
-				.send({email: "sean@sean.com", password: "mypass"})
+				.send({email: "jimin@test.com", password: "mypass"})
 				.end(function (err, response) {
 					agent.put('/api/users/' + userId)
-						.send({email: "poop@poop.com"})
+						.send({email: "change@test.com"})
 						.expect(201)
 						.end(function (err, response) {
 							agent.put('/api/users/' + userId)
-								.send({email: "poop@poop.com"})
+								.send({email: "change@test.com"})
 								.expect(201)
 								.end(function (err, response) {
 									if (err) return done(err);
