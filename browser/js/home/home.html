@@ -2,11 +2,15 @@
 	<div class="row">
         <h1> MSF Vaccine Cold Chain Demo </h1>
 	</div>
+
+    <alert type="danger" ng-show="error">
+        {{ error }}
+    </alert>
+
     <h3>Temperature Readings</h3>
     <canvas id="chart" width="1000" height="200"></canvas>
 
     <h3> Recent Dweets </h3>
-    <!-- <dweet-list dweets="dweets"></dweet-list> -->
     <ul>
         <li ng-repeat="dweet in homeDweets | orderBy:'created' ">{{ dweet }}</li>
     </ul>

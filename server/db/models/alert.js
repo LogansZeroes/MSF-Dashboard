@@ -1,5 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
+var validator = require('email-validator');
+
 
 var schema = new mongoose.Schema({
     status: {
@@ -18,7 +20,12 @@ var schema = new mongoose.Schema({
     },
     time: {
         type: String
-    }
-})
+    },
+    temp: String
+});
+
+schema.path('email').validate(function (value) {
+    return validator.validate(value);
+});
 
 mongoose.model('Alert', schema);

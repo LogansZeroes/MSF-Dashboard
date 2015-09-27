@@ -6,11 +6,14 @@ app.config(function ($stateProvider) {
     })
 })
 
-app.controller('alertCtrl', function (DweetFactory, $scope, $state) {
-    $scope.sendAlert = function (alert) {
-        DweetFactory.postAlert(alert)
-        .then (function (postedAlert) {
-            $state.go('home');
-        })
+app.controller('alertCtrl', function (DweetFactory, $scope, $state, $rootScope) {
+
+    $scope.saveAlert = function (alert) {
+        alert.upperBound = Number(alert.upperBound);
+        alert.lowerBound = Number(alert.lowerBound);
+        alert.temp;
+        $rootScope.alert = alert;
+        $rootScope.alertEntered = true;
+        $state.go('home');
     }
 })

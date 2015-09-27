@@ -2,9 +2,12 @@ app.config(function($stateProvider) {
     $stateProvider.state('home', {
         url: '/',
         templateUrl: 'js/home/home.html',
-        controller: function($scope, DweetFactory, latestTemp) {
+        controller: function($scope, DweetFactory, latestTemp, $rootScope) {
             //Create array of latest dweets to display on home state
             $scope.homeDweets = [];
+            $rootScope.homeAlerts = [];
+
+            $scope.error = null;
 
             //Initialize with first dweet
             DweetFactory.getLatest()
@@ -12,30 +15,64 @@ app.config(function($stateProvider) {
                 $scope.prevDweet = dweet;
             });
 
+            // console.log($rootScope.alert)
+
             var line1 = new TimeSeries();
             var line2 = new TimeSeries();
 
-            //Check every half second to see if the last dweet is new, then push to homeDweets, then plot
-            // setInterval(function() {
-            //     DweetFactory.getLatest()
-            //     .then(function(dweet){
-            //         $scope.lastDweet = dweet;
-            //     })
-            //     .then(function() {
-            //         if ($scope.prevDweet.created != $scope.lastDweet.created) {
-            //             $scope.homeDweets.push($scope.lastDweet);
-            //             $scope.prevDweet = $scope.lastDweet;
-            //             line1.append(new Date().getTime(), $scope.lastDweet.content['Temperature']);
-            //             //Random plot to check that the graph is working
-            //             line2.append(new Date().getTime(), Math.floor(Math.random()*4+70));
-            //         }
-            //         while($scope.homeDweets.length > 100) {
-            //             $scope.homeDweets.shift();
-            //         }
-            //     })
-            //
-            // }, 100);
+            // Check every half second to see if the last dweet is new, then push to homeDweets, then plot
+            if ($rootScope.alert) {
+                setInterval(function() {
+                    DweetFactory.getLatest()
+                    .then(function(dweet){
+                        $scope.lastDweet = dweet;
+                    })
+                    .then(function() {
+                        var randomTemp = Math.random()*5+70;
+                        if ($scope.prevDweet.created != $scope.lastDweet.created) {
+                            $scope.homeDweets.push($scope.lastDweet);
+                            $scope.prevDweet = $scope.lastDweet;
+                            line1.append(new Date().getTime(), $scope.lastDweet.content['Temperature']);
+                            //Random plot to check that the graph is working
+                            line2.append(new Date().getTime(), randomTemp);
+                        }
+                        //Detect if the temperature breaks out of safe range
+                        if ($scope.lastDweet.content['Temperature'] > $rootScope.alert.upperBound || $scope.lastDweet.content['Temperature'] < $rootScope.alert.lowerBound) {
+                            console.log('break in cold chain')
+                            var currDate = new Date();
+                            var currTime = currDate.toString().slice(16);
+                            $rootScope.alert.time = currTime;
+                            $rootScope.alert.temp = $scope.lastDweet.content['Temperature'];
+                            DweetFactory.postAlert($rootScope.alert)
+                            .then (function (postedAlert) {
+                                $rootScope.homeAlerts.push(postedAlert);
+                                $scope.error = 'Break in cold chain detected!!'
+                            })
+                        }
+                        //Detect if the temperature breaks out of safe range
+            //TURN ON TO DEMONSTRATE BREAK IN COLD CHAIN ALERT & EMAIL FEATURE
+                        if (randomTemp > $rootScope.alert.upperBound || randomTemp < $rootScope.alert.lowerBound) {
+                            console.log('break in cold chain 2');
+                            var currDate = new Date();
+                            var currTime = currDate.toString().slice(16);
+                            $rootScope.alert.time = currTime;
+                            $rootScope.alert.temp = randomTemp;
+                            DweetFactory.postAlert($rootScope.alert)
+                            .then (function (postedAlert) {
+                                $rootScope.homeAlerts.push(postedAlert);
+                                $scope.error = 'Break in cold chain detected!!'
+                            })
+                        }
 
+                        while($scope.homeDweets.length > 100) {
+                            $scope.homeDweets.shift();
+                        }
+                        while($scope.homeAlerts.length > 100) {
+                            $scope.homeAlerts.shift();
+                        }
+                    })
+                }, 500);
+            }
 
             //Make a smoothie chart with aesthetically pleasing properties
             var smoothie = new SmoothieChart({
@@ -46,21 +83,21 @@ app.config(function($stateProvider) {
                     millisPerLine: 500,
                     verticalSections: 4
                 },
-                // maxValue: 73,
-                // minValue: 72,
-                maxValueScale: 1.01,
-                minValueScale: 1.02,
+                maxValue: $rootScope.alert.upperBound * 1.003,
+                minValue: $rootScope.alert.lowerBound * 0.997,
+                // maxValueScale: 1.01,
+                // minValueScale: 1.02,
                 timestampFormatter:SmoothieChart.timeFormatter,
                 //The range of acceptable temperatures visualized
                 //Should change 'value' accordingly
                 horizontalLines:[{
                     color:'#880000',
                     lineWidth:5,
-                    value:latestTemp*1.005 || 70
+                    value: ($rootScope.alert.upperBound || 70)
                 }, {
                     color:'#880000',
                     lineWidth:5,
-                    value:latestTemp*0.99 || 68
+                    value: ($rootScope.alert.lowerBound || 68)
                 }]
             });
 

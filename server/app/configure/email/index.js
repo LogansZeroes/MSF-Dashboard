@@ -15,7 +15,6 @@ var template = {
 };
 
 var sendEmail = function sendEmail(alert, subject, message_html) {
-    console.log('alert is ', alert)
   var message = {
       "html": message_html,
       "subject": subject,
@@ -46,7 +45,7 @@ function renderTemp(templateFilename, alert) {
         contents = contents.toString();
         var renderedTemp = swig.render(contents, {locals: {alert: alert}});
         var subject = template.subj;
-        // sendEmail(alert, subject, renderedTemp);
+        sendEmail(alert, subject, renderedTemp);
   });
 }
 

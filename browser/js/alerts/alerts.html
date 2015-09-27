@@ -1,16 +1,30 @@
-<form id="alert-form" name="alertForm" ng-submit="alertForm.$valid && sendAlert(alert)">
+<form id="alert-form" name="alertForm" ng-submit="alertForm.$valid && saveAlert(alert)">
 
-    <h3 type="success">
-        Please enter your email and phone number for temperature alerts
+    <alert type="danger" ng-show="error">
+        {{ error }}
+    </alert>
+
+    <h3>
+        Please enter pertinent info below
     </h3>
 
     <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="text" ng-model="alert.email" class="form-control" id="alert-email" placeholder="Enter email">
+        <label for="email">Email address for temperature alerts</label>
+        <input type="email" ng-model="alert.email" class="form-control" id="alert-email" placeholder="Enter email" required>
     </div>
     <div class="form-group">
-        <label for="alert-phoneNumber">Phone number</label>
-        <input type="phoneNumber" ng-model="alert.phoneNumber" class="form-control" id="alert-phoneNumber" placeholder="Phone Number">
+        <label for="alert-upperBound">Enter the maximum allowable temperature</label>
+        <input type="number" ng-model="alert.upperBound" class="form-control" id="alert-upperBound" placeholder="Safe Upper Bound" required>
+    </div>
+    <div class="form-group">
+        <label for="alert-lowerBound">Enter the minimum allowable temperature</label>
+        <input type="number" ng-model="alert.lowerBound" class="form-control" id="alert-lowerBound" placeholder="Safe Lower Bound" required>
     </div>
     <button type="submit" class="btn btn-default">Submit</button>
+
 </form>
+
+<h3> Recent Alerts </h3>
+<ul>
+    <li ng-repeat="alert in homeAlerts track by $index| orderBy:'created' ">{{ alert }}</li>
+</ul>
