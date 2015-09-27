@@ -1,0 +1,16 @@
+<form id="alert-form" name="alertForm" ng-submit="alertForm.$valid && sendAlert(alert)">
+
+    <h3 type="success">
+        Please enter your email and phone number for temperature alerts
+    </h3>
+
+    <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="text" ng-model="alert.email" class="form-control" id="alert-email" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+        <label for="alert-phoneNumber">Phone number</label>
+        <input type="phoneNumber" ng-model="alert.phoneNumber" class="form-control" id="alert-phoneNumber" placeholder="Phone Number">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>

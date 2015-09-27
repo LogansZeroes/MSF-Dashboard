@@ -17,5 +17,12 @@ app.factory('DweetFactory', function ($http) {
         })
     };
 
+    Dweets.postAlert = function (alert) {
+        return $http.post('/api/alerts', alert)
+        .then ( function (response) {
+            return response.data;
+        });
+    };
+
     return Dweets;
 })

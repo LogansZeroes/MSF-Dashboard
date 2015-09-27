@@ -7,34 +7,28 @@ var fs = Promise.promisifyAll(require('fs'));
 
 var mandrillClient = new mandrill.Mandrill(keys.MANDRILL.api);
 
-//confirmation emails
 
-var extreme = {
-  tag: "Exxxtreme",
-  from: "Exxxtreme",
-  email: "exxxxxxxtreme@gmail.com",
-  confirmSubj: "Your order has been confirmed",
-  updateSubj: "Your order status has been updated"
+var template = {
+  from: "MSF Dashboard",
+  email: "noreply@msfTemp.com",
+  subj: "The sensor detected a break in the cold chain"
 };
 
-var sendEmail = function sendEmail(order, subject, message_html) {
+var sendEmail = function sendEmail(alert, subject, message_html) {
+    console.log('alert is ', alert)
   var message = {
       "html": message_html,
       "subject": subject,
-      "from_email": extreme.email,
-      "from_name": extreme.from,
+      "from_email": template.email,
+      "from_name": template.from,
       "to": [{
-              "email": order.email,
-              "name": order.name
+              "email": alert.email
           }],
       "important": false,
       "track_opens": true,
       "auto_html": false,
       "preserve_recipients": true,
-      "merge": false,
-      "tags": [
-          extreme.tag
-      ]
+      "merge": false
   };
   var async = false;
   var ip_pool = "Main Pool";
@@ -45,22 +39,22 @@ var sendEmail = function sendEmail(order, subject, message_html) {
   });
 };
 
-function renderTemp(templateFilename, order) {
-  templateFilename = __dirname + templateFilename;
-  fs.readFile(templateFilename, function (err, contents) {
-      if(err) throw new Error(err);
-    contents = contents.toString();
-    var renderedTemp = swig.render(contents, {locals: {order: order}});
-    var subject = order.status === "confirmed" ? extreme.confirmSubj : extreme.updateSubj;
-    sendEmail(order, subject, renderedTemp);
+function renderTemp(templateFilename, alert) {
+    templateFilename = __dirname + templateFilename;
+    fs.readFile(templateFilename, function (err, contents) {
+        if(err) throw new Error(err);
+        contents = contents.toString();
+        var renderedTemp = swig.render(contents, {locals: {alert: alert}});
+        var subject = template.subj;
+        // sendEmail(alert, subject, renderedTemp);
   });
 }
 
-var confirmEmail = function (order) {
-  var templateFile = order.status === "confirmed" ? "/confirmTemp.html" : "/updateTemp.html";
-  renderTemp(templateFile, order);
+var confirmEmail = function (alert) {
+    var templateFile = "/confirmTemp.html";
+    renderTemp(templateFile, alert);
 };
 
 module.exports = {
-  confirmEmail: confirmEmail
+    confirmEmail: confirmEmail
 };

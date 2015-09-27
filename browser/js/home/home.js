@@ -16,25 +16,25 @@ app.config(function($stateProvider) {
             var line2 = new TimeSeries();
 
             //Check every half second to see if the last dweet is new, then push to homeDweets, then plot
-            setInterval(function() {
-                DweetFactory.getLatest()
-                .then(function(dweet){
-                    $scope.lastDweet = dweet;
-                })
-                .then(function() {
-                    if ($scope.prevDweet.created != $scope.lastDweet.created) {
-                        $scope.homeDweets.push($scope.lastDweet);
-                        $scope.prevDweet = $scope.lastDweet;
-                        line1.append(new Date().getTime(), $scope.lastDweet.content['Temperature']);
-                        //Random plot to check that the graph is working
-                        line2.append(new Date().getTime(), Math.floor(Math.random()*4+70));
-                    }
-                    while($scope.homeDweets.length > 100) {
-                        $scope.homeDweets.shift();
-                    }
-                })
-
-            }, 100);
+            // setInterval(function() {
+            //     DweetFactory.getLatest()
+            //     .then(function(dweet){
+            //         $scope.lastDweet = dweet;
+            //     })
+            //     .then(function() {
+            //         if ($scope.prevDweet.created != $scope.lastDweet.created) {
+            //             $scope.homeDweets.push($scope.lastDweet);
+            //             $scope.prevDweet = $scope.lastDweet;
+            //             line1.append(new Date().getTime(), $scope.lastDweet.content['Temperature']);
+            //             //Random plot to check that the graph is working
+            //             line2.append(new Date().getTime(), Math.floor(Math.random()*4+70));
+            //         }
+            //         while($scope.homeDweets.length > 100) {
+            //             $scope.homeDweets.shift();
+            //         }
+            //     })
+            //
+            // }, 100);
 
 
             //Make a smoothie chart with aesthetically pleasing properties
