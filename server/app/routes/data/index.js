@@ -11,14 +11,14 @@ router.get('/latest', function (req, res) {
     var currDate = new Date();
     var hourBack = new Date(currDate.getTime() - 60*60*1000);
 
-    dweetio.get_latest_dweet_for("calm-patch", function(err, latestDweet){
+    dweetio.get_latest_dweet_for("AvocadoGrove", function(err, latestDweet){
 
         var dweet = latestDweet[0]; // Dweet is always an array of 1
 
         var obj = {
             name: dweet.thing,
             created: dweet.created,
-            temp: dweet.content.Temperature
+            temp: dweet.content.aiOutsideTemp_degreesF
         };
 
         Dweet.create(obj);

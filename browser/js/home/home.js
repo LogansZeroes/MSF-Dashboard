@@ -2,7 +2,7 @@ app.config(function($stateProvider) {
     $stateProvider.state('home', {
         url: '/',
         templateUrl: 'js/home/home.html',
-        controller: function($scope, DweetFactory, latestTemp, $rootScope) {
+        controller: function($scope, DweetFactory, latestTemp, $rootScope, $state) {
             //Create array of latest dweets to display on home state
             $scope.homeDweets = [];
             $rootScope.homeAlerts = [];
@@ -15,10 +15,20 @@ app.config(function($stateProvider) {
                 $scope.prevDweet = dweet;
             });
 
-            // console.log($rootScope.alert)
+            // button click leads to alerts state
+            $scope.goAlerts = function () {
+                $state.go('alerts');
+            };
 
             var line1 = new TimeSeries();
             var line2 = new TimeSeries();
+
+            // default temperature range is 50-90 for demo purposes
+            if(!$rootScope.alert) {
+                $rootScope.alert = {};
+                $rootScope.alert.lowerBound = 50;
+                $rootScope.alert.upperBound = 90;
+            }
 
             // Check every half second to see if the last dweet is new, then push to homeDweets, then plot
             if ($rootScope.alert) {
@@ -28,21 +38,21 @@ app.config(function($stateProvider) {
                         $scope.lastDweet = dweet;
                     })
                     .then(function() {
-                        var randomTemp = Math.random()*5+70;
+                        var randomTemp = Math.random()*20+60;
                         if ($scope.prevDweet.created != $scope.lastDweet.created) {
                             $scope.homeDweets.push($scope.lastDweet);
                             $scope.prevDweet = $scope.lastDweet;
-                            line1.append(new Date().getTime(), $scope.lastDweet.content['Temperature']);
+                            line1.append(new Date().getTime(), $scope.lastDweet.content['aiOutsideTemp_degreesF']);
                             //Random plot to check that the graph is working
                             line2.append(new Date().getTime(), randomTemp);
                         }
                         //Detect if the temperature breaks out of safe range
-                        if ($scope.lastDweet.content['Temperature'] > $rootScope.alert.upperBound || $scope.lastDweet.content['Temperature'] < $rootScope.alert.lowerBound) {
+                        if ($scope.lastDweet.content['aiOutsideTemp_degreesF'] > $rootScope.alert.upperBound || $scope.lastDweet.content['aiOutsideTemp_degreesF'] < $rootScope.alert.lowerBound) {
                             console.log('break in cold chain')
                             var currDate = new Date();
                             var currTime = currDate.toString().slice(16);
                             $rootScope.alert.time = currTime;
-                            $rootScope.alert.temp = $scope.lastDweet.content['Temperature'];
+                            $rootScope.alert.temp = $scope.lastDweet.content['aiOutsideTemp_degreesF'];
                             DweetFactory.postAlert($rootScope.alert)
                             .then (function (postedAlert) {
                                 $rootScope.homeAlerts.push(postedAlert);
@@ -118,7 +128,7 @@ app.config(function($stateProvider) {
             latestTemp: function (DweetFactory) {
                 return DweetFactory.getLatest()
                 .then( function (dweet) {
-                    return dweet.content['Temperature'];
+                    return dweet.content['aiOutsideTemp_degreesF'];
                 });
             }
         }

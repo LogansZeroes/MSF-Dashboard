@@ -53,10 +53,10 @@ describe('Dweet Route', function () {
 				.end(function (err, response) {
 					if (err) return done(err);
                     var resDate = new Date(response.body.created);
-					expect(response.body.thing).to.equal('calm-patch');
+					expect(response.body.thing).to.equal('AvocadoGrove');
                     // most recent dweet should be within the last 5 seconds
 					expect(resDate.getTime()).to.be.above(currDate.getTime() - 5000);
-                    expect(response.body.content.Temperature).to.be.ok;
+                    expect(response.body.content.aiOutsideTemp_degreesF).to.be.ok;
 					done();
 				});
 		});

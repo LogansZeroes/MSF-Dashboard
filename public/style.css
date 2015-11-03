@@ -6836,6 +6836,9 @@ navbar {
   #home div.img {
     text-align: center;
     margin: auto; }
+  #home button {
+    color: black;
+    font-weight: 500; }
 
 #about {
   margin: 0 auto;
