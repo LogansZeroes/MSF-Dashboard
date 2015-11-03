@@ -25,9 +25,10 @@ app.config(function($stateProvider) {
 
             // default temperature range is 50-90 for demo purposes
             if(!$rootScope.alert) {
-                $rootScope.alert = {};
-                $rootScope.alert.lowerBound = 50;
-                $rootScope.alert.upperBound = 90;
+                $rootScope.alert = {
+                    upperBound: 90,
+                    lowerBound: 50
+                };
             }
 
             // Check every half second to see if the last dweet is new, then push to homeDweets, then plot
